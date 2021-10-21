@@ -1,0 +1,20 @@
+{% extends "todos/base.html" %}
+
+{% block title %}To Do - Task {{todo.id}}{% endblock %}
+{% block content %}
+
+  <p>
+    <h3>Task</h3>
+  </p>
+
+  <div class="todo">
+    <ul>
+      <li>Task: {{todo.task}}</li>
+      <li>Location: {{todo.location}}</li>
+      <li>Done: {{todo.done}}</li>
+      <li>Created: {{todo.created}}</li>
+    </ul>
+  </div>
+  
+  <a href="{% url 'todos:update' todo.id %}" class="btn btn-secondary">Update</a> <a href="{% url 'todos:delete' todo.id %}" class="btn btn-secondary">Delete</a> <a href="{% url 'todos:index' %}" class="btn btn-secondary">Back</a>
+{% endblock %}
