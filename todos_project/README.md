@@ -35,7 +35,7 @@ JQuery 3.6.0 [Included]
 
 #### Bootstrap
 
-Boostrap 5.1.3 [Included]
+Bootstrap 5.1.3 [Included]
 
 #### Database
 
