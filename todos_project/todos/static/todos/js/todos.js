@@ -1,12 +1,33 @@
-/* JavaScript file for Todos */
+///////////////////////////////////////////////////////////////////////////////
+// FILE     : todos.js
+// SYNOPSIS : All JavaScript used in this app.
+// LICENSE  : MIT
+// NOTES    :
+//   1. This code is written only with browser compatability in mind. It can
+//      be improved with the lastest version of ECMAScript.
+//   2. Uses jQuery
+///////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////
+// CONSTANTS
+///////////////////////////////////////////////////////////////////////////////
+
+var COLD_THRESHOLD = 10.0;
+var HOT_THRESHOLD = 25.0;
+var HOT_COLOUR = 'red';
+var WARM_COLOUR = 'gold';
+var COLD_COLOUR = 'blue';
+
+var REGEX = new RegExp('<li>Location\s*:\s*(.*)\s*</li>', 'm');
+var BASE_URL = 'http://localhost:8000/todos/weather/?q=';
+
+
+///////////////////////////////////////////////////////////////////////////////
+// FUNCTIONS
+///////////////////////////////////////////////////////////////////////////////
 
 function get_colour(temperature) {
-    var COLD_THRESHOLD = 10.0;
-    var HOT_THRESHOLD = 25.0;
-    var HOT_COLOUR = 'red';
-    var WARM_COLOUR = 'gold';
-    var COLD_COLOUR = 'blue';
-
     if (temperature < COLD_THRESHOLD) {
         return (COLD_COLOUR);
     } else if (temperature > HOT_THRESHOLD) {
@@ -16,10 +37,13 @@ function get_colour(temperature) {
     }
 }
 
-var REGEX = new RegExp('<li>Location\s*:\s*(.*)\s*</li>', 'm');
-var BASE_URL = 'http://localhost:8000/todos/weather/?q=';
+
+///////////////////////////////////////////////////////////////////////////////
+// MAIN
+///////////////////////////////////////////////////////////////////////////////
 
 $(document).ready(function(){
+    // If 'todo' classes are there give them a colour based on temperature.
     var $tasks = $('.todo');
     for (var i = 0; i < $tasks.length; i++) {
         var $current_task = $tasks.eq(i);
@@ -40,15 +64,13 @@ $(document).ready(function(){
             $current_task.css('background-color', colour);
         }
     }
-    
+
+    // Let location decide the colour of 'Create' and 'Update' forms.
     var $location = $('#id_location');
     if ($location.length) {
         var csrfToken = $('input[name=csrfmiddlewaretoken]').val();
         $location.on('input', function(){
             var location = $location.val();
-            console.log(`Location = '${location}'`);
-            console.log(`    Encoded URI = ${encodeURI(location)}`);
-            console.log(`    CSRF Token = '${csrfToken}'`);
             var $form = $('.todo_form');
             if ($form.length) {
                 var url_get = BASE_URL + location;
@@ -70,3 +92,8 @@ $(document).ready(function(){
         });
     }
 });
+
+
+///////////////////////////////////////////////////////////////////////////////
+// END
+///////////////////////////////////////////////////////////////////////////////
