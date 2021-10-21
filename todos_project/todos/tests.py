@@ -1,10 +1,26 @@
-from django.test import TestCase
+###############################################################################
+# FILE     : tests.py
+# SYNOPSIS : All Django tests are found here.
+# LICENSE  : MIT
+###############################################################################
 
+
+###############################################################################
+# IMPORTS
+###############################################################################
+
+from django.test import TestCase
 
 from .models import Todo
 
 
+###############################################################################
+# CLASSES
+###############################################################################
+
 class TodoTestCase(TestCase):
+    """Model to test using a database."""
+    
     def setUp(self):
         Todo.objects.create(task='Test task 1', location='London')
         Todo.objects.create(task='Test task 2', location='Melbourne')
@@ -34,3 +50,11 @@ class TodoTestCase(TestCase):
         string_2 = f"{task_2}"
         self.assertIn('Test task 1', string_1)
         self.assertIn('Test task 2', string_2)
+
+
+###############################################################################
+# END
+###############################################################################
+# Local variables:
+# mode: python
+# End:

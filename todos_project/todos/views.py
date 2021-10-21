@@ -1,3 +1,14 @@
+###############################################################################
+# FILE     : views.py
+# SYNOPSIS : All Django views for the app model are here.
+# LICENSE  : MIT
+###############################################################################
+
+
+###############################################################################
+# IMPORTS
+###############################################################################
+
 import requests
 
 from django.http import JsonResponse
@@ -20,17 +31,27 @@ from .weather import (
 )
 
 
+###############################################################################
+# FUNCTIONS
+###############################################################################
+
 def index(request):
+    """Provides the list view of all tasks."""
+
     todos = Todo.objects.all()
     return render(request, 'todos/index.html', {'todos': todos})
 
 
 def show(request, todo_id):
+    """Provides a detail view of an individual task."""
+
     todo = get_object_or_404(Todo, id=todo_id)
     return render(request, 'todos/show.html', {'todo': todo})
 
 
 def create(request):
+    """Provides the form for the creation of a new task."""
+
     form = TodoFormCreate(request.POST or None)
     if form.is_valid():
         form.save()
@@ -40,6 +61,8 @@ def create(request):
 
 
 def update(request, todo_id):
+    """Provides the form for updating an existing task."""
+
     todo = get_object_or_404(Todo, id=todo_id)
     form = TodoFormUpdate(request.POST or None, instance=todo)
     if form.is_valid():
@@ -50,6 +73,8 @@ def update(request, todo_id):
 
 
 def delete(request, todo_id):
+    """Provides the form for the deletion of an existing task."""
+
     todo = get_object_or_404(Todo, id=todo_id)
     if request.method == 'POST':
         todo.delete()
@@ -59,6 +84,8 @@ def delete(request, todo_id):
 
 
 def weather(request):
+    """Returns JSON for integer temperature in Celsius at a location."""
+    
     location = request.GET.get('q', None)
     if location:
         url_weather = (
@@ -69,5 +96,14 @@ def weather(request):
         if response_json['cod'] != '404':
             main_info = response_json['main']
             current_temperature = float(main_info['temp']) - ZERO_C_IN_K
-            return JsonResponse({'temperature':f"{round(current_temperature)}"})
+            return JsonResponse(
+                {'temperature':f"{round(current_temperature)}"}
+            )
 
+
+###############################################################################
+# END
+###############################################################################
+# Local variables:
+# mode: python
+# End:

@@ -1,4 +1,11 @@
 ###############################################################################
+# FILE     : models.py
+# SYNOPSIS : All Django models used are found here.
+# LICENSE  : MIT
+###############################################################################
+
+
+###############################################################################
 # IMPORTS
 ###############################################################################
 
@@ -20,6 +27,8 @@ from .weather import (
 ###############################################################################
 
 class Todo(models.Model):
+    """Represents the model for a task in this project."""
+    
     MELBOURNE = 'Melbourne'
     LONDON = 'London'
     NEW_YORK = 'New York'
@@ -63,6 +72,8 @@ class Todo(models.Model):
 
 @receiver(pre_save)
 def pre_save_callback(sender, instance, *args, **kw_args):
+    """Specific callback to fill the temperature field of the Todo model."""
+
     if 'Todo' in f"{sender}":
         url_weather = (
             f"{BASE_URL_WEATHER}appid={API_KEY}&q={instance.location}"
@@ -74,3 +85,10 @@ def pre_save_callback(sender, instance, *args, **kw_args):
             current_temperature = float(main_info['temp']) - ZERO_C_IN_K
             instance.temperature = current_temperature
 
+
+###############################################################################
+# END
+###############################################################################
+# Local variables:
+# mode: python
+# End:
