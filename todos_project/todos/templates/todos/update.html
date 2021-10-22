@@ -18,8 +18,8 @@
       <input type="submit" value="Update" />
     </form>
   </div>
-  
-  <div class="temperature">
+
+  <div class="temperature" id="{{todo.location}}">
   </div>
   
   <a href="{% url 'todos:show' todo.id %}" class="btn btn-secondary">Back</a>
