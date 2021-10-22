@@ -85,7 +85,7 @@ def delete(request, todo_id):
 
 def weather(request):
     """Returns JSON for integer temperature in Celsius at a location."""
-    
+
     location = request.GET.get('q', None)
     if location:
         url_weather = (
@@ -97,7 +97,7 @@ def weather(request):
             main_info = response_json['main']
             current_temperature = float(main_info['temp']) - ZERO_C_IN_K
             return JsonResponse(
-                {'temperature':f"{round(current_temperature)}"}
+                {'temperature': f"{round(current_temperature)}"}
             )
 
 

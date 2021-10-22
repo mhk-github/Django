@@ -24,7 +24,7 @@ class TodoFormCreate(forms.ModelForm):
         model = Todo
         fields = ('task', 'location',)
 
-        
+
 class TodoFormUpdate(forms.ModelForm):
     """A form only used to update an existing task."""
 

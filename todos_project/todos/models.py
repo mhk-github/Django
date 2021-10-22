@@ -28,12 +28,12 @@ from .weather import (
 
 class Todo(models.Model):
     """Represents the model for a task in this project."""
-    
+
     MELBOURNE = 'Melbourne'
     LONDON = 'London'
     NEW_YORK = 'New York'
     PARIS = 'Paris'
-    VLADIVOSTOK ='Vladivostok'
+    VLADIVOSTOK =c'Vladivostok'
     CITY_CHOICES = [
         (MELBOURNE, 'Melbourne'),
         (LONDON, 'London'),
@@ -41,7 +41,7 @@ class Todo(models.Model):
         (PARIS, 'Paris'),
         (VLADIVOSTOK, 'Vladivostok'),
     ]
-    
+
     task = models.CharField(max_length=255, unique_for_date='created')
     location = models.CharField(max_length=255, choices=CITY_CHOICES)
     temperature = models.FloatField()
