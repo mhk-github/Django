@@ -19,8 +19,9 @@ var HOT_COLOUR = 'red';
 var WARM_COLOUR = 'gold';
 var COLD_COLOUR = 'blue';
 
-var REGEX_TASK = new RegExp('<li>Location\s*:\s*(.*)\s*</li>', 'm');
-var REGEX_LOCATION = new RegExp('id="(.*)"', 'm');
+var REGEX_TASK_LOCATION = new RegExp('<li>Location\s*:\s*(.*)\s*</li>', 'm');
+var REGEX_TASK_DONE = new RegExp('<li>Done: False</li>', 'm');
+var REGEX_TEMPERATURE_LOCATION = new RegExp('id="(.*)"', 'm');
 var BASE_URL = 'http://localhost:8000/todos/weather/?q=';
 
 
@@ -49,18 +50,21 @@ $(document).ready(function(){
     for (var i = 0; i < $tasks.length; i++) {
         var $current_task = $tasks.eq(i);
         var $task_html = $current_task.html();
-        var $task_location = $task_html.match(REGEX_TASK)[1].trim();
-        if ($task_location.length) {
-            var url_get = BASE_URL + $task_location;
-            $.ajax({
-                type: 'GET',
-                url: url_get,
-                context: {'task': $current_task},
-                success: function(data) {
-                    var temperature = data.temperature;
-                    var colour = get_colour(temperature);
-                    this.task.css('background-color', colour);                }
-            });
+        if (REGEX_TASK_DONE.test($task_html)) {
+            var $task_location = $task_html.match(REGEX_TASK_LOCATION)[1].trim();
+            if ($task_location.length) {
+                var url_get = BASE_URL + $task_location;
+                $.ajax({
+                    type: 'GET',
+                    url: url_get,
+                    context: {'task': $current_task},
+                    success: function(data) {
+                        var temperature = data.temperature;
+                        var colour = get_colour(temperature);
+                        this.task.css('background-color', colour);
+                    }
+                });
+            }
         }
     }
 
@@ -68,8 +72,8 @@ $(document).ready(function(){
     var $update_marker = $(".temperature");
     if ($update_marker.length) {
         var $location = $update_marker.prop('outerHTML');
-        if (REGEX_LOCATION.test($location)) {
-            var start_location = $update_marker.prop('outerHTML').match(REGEX_LOCATION)[1];
+        if (REGEX_TEMPERATURE_LOCATION.test($location)) {
+            var start_location = $update_marker.prop('outerHTML').match(REGEX_TEMPERATURE_LOCATION)[1];
             var url_get = BASE_URL + start_location;
             $.ajax({
                 type: 'GET',
