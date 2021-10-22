@@ -33,7 +33,7 @@ class Todo(models.Model):
     LONDON = 'London'
     NEW_YORK = 'New York'
     PARIS = 'Paris'
-    VLADIVOSTOK =c'Vladivostok'
+    VLADIVOSTOK = 'Vladivostok'
     CITY_CHOICES = [
         (MELBOURNE, 'Melbourne'),
         (LONDON, 'London'),
