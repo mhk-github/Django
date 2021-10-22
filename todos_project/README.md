@@ -31,7 +31,7 @@ The python code base relies on the following packages being present:
 
 #### JavaScript
 
-JQuery 3.6.0 [Included]
+jQuery 3.6.0 [Included]
 
 #### Bootstrap
 
@@ -67,3 +67,5 @@ responsiveness will be seen by using a React front-end communicating by REST API
 to the Django 3 back-end.
 3. SQLite 3 is the database used. Thus this project in no way can be considered 
 production-ready. A switch to PostgreSQL is recommended.
+4. An API key from Openweathermap (http://openweathermap.org) must be provided in 
+file *todos_project/todos/weather.py* in order for weather data to be brought in.
