@@ -60,3 +60,10 @@ python manage.py runserver
 **http://localhost:8000/todos** .
 
 ## Notes
+
+1. This code represents a self-contained Django 3 project that can be run in Docker.
+2. The code is not optimized, particularly the JavaScript part. Improvements in 
+responsiveness will be seen by using a React front-end communicating by REST API 
+to the Django 3 back-end.
+3. SQLite 3 is the database used. Thus this project in no way can be considered 
+production-ready. A switch to PostgreSQL is recommended.
