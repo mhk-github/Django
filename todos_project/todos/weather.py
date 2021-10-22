@@ -9,7 +9,7 @@
 # CONSTANTS
 ###############################################################################
 
-API_KEY = 'fa2544ff3a86f7c916d94840e0bd1e82'
+API_KEY = '<YOUR API KEY HERE>'
 BASE_URL_WEATHER = 'http://api.openweathermap.org/data/2.5/weather?'
 ZERO_C_IN_K = 273.15
 
