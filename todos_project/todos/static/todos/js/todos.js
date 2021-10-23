@@ -22,7 +22,7 @@ var COLD_COLOUR = 'blue';
 var REGEX_TASK_LOCATION = new RegExp('<li>Location\s*:\s*(.*)\s*</li>', 'm');
 var REGEX_TASK_DONE = new RegExp('<li>Done: False</li>', 'm');
 var REGEX_TEMPERATURE_LOCATION = new RegExp('id="(.*)"', 'm');
-var BASE_URL = 'http://localhost:8000/todos/weather/?q=';
+var BASE_URL = 'http://localhost:8000/todos/weather/';
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -53,10 +53,10 @@ $(document).ready(function(){
         if (REGEX_TASK_DONE.test($task_html)) {
             var $task_location = $task_html.match(REGEX_TASK_LOCATION)[1].trim();
             if ($task_location.length) {
-                var url_get = BASE_URL + $task_location;
                 $.ajax({
                     type: 'GET',
-                    url: url_get,
+                    url: BASE_URL,
+                    data: {'q': $task_location},
                     context: {'task': $current_task},
                     success: function(data) {
                         var temperature = data.temperature;
@@ -73,11 +73,11 @@ $(document).ready(function(){
     if ($update_marker.length) {
         var $location = $update_marker.prop('outerHTML');
         if (REGEX_TEMPERATURE_LOCATION.test($location)) {
-            var start_location = $update_marker.prop('outerHTML').match(REGEX_TEMPERATURE_LOCATION)[1];
-            var url_get = BASE_URL + start_location;
+            var $start_location = $update_marker.prop('outerHTML').match(REGEX_TEMPERATURE_LOCATION)[1];
             $.ajax({
                 type: 'GET',
-                url: url_get,
+                url: BASE_URL,
+                data: {'q': $start_location},
                 context: {
                     'marker': $update_marker,
                     'form': $('.todo_form')
@@ -96,13 +96,12 @@ $(document).ready(function(){
     var $location = $('#id_location');
     if ($location.length) {
         $location.on('input', function(){
-            var location = $location.val();
             var $form = $('.todo_form');
             if ($form.length) {
-                var url_get = BASE_URL + location;
                 $.ajax({
                     type: 'GET',
-                    url: url_get,
+                    url: BASE_URL,
+                    data: {'q': $location.val()},
                     context: {'form': $form},
                     success: function(data) {
                         var temperature = data.temperature;
