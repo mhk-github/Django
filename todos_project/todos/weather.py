@@ -9,8 +9,10 @@
 # CONSTANTS
 ###############################################################################
 
-API_KEY = '<PLACE OPENWEATHERMAP API KEY HERE>'
-BASE_URL_WEATHER = 'http://api.openweathermap.org/data/2.5/weather?'
+OPENWEATHERMAP_API_KEY = '<YOUR OPENWEATHERMAP API KEY>'
+OPENWEATHERMAP_URL_WEATHER = 'http://api.openweathermap.org/data/2.5/weather'
+OPENWEATHERMAP_TIMEOUT = 3.0
+
 ZERO_C_IN_K = 273.15
 
 

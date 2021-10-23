@@ -16,8 +16,9 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
 from .weather import (
-    API_KEY,
-    BASE_URL_WEATHER,
+    OPENWEATHERMAP_API_KEY,
+    OPENWEATHERMAP_URL_WEATHER,
+    OPENWEATHERMAP_TIMEOUT,
     ZERO_C_IN_K,
 )
 
@@ -75,10 +76,15 @@ def pre_save_callback(sender, instance, *args, **kw_args):
     """Specific callback to fill the temperature field of the Todo model."""
 
     if 'Todo' in f"{sender}":
-        url_weather = (
-            f"{BASE_URL_WEATHER}appid={API_KEY}&q={instance.location}"
+        query = {
+            'appid': OPENWEATHERMAP_API_KEY,
+            'q': instance.location
+        }
+        response = requests.get(
+            OPENWEATHERMAP_URL_WEATHER,
+            params=query,
+            timeout=OPENWEATHERMAP_TIMEOUT
         )
-        response = requests.get(url_weather)
         response_json = response.json()
         if response_json['cod'] != '404':
             main_info = response_json['main']

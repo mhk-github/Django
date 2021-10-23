@@ -25,8 +25,9 @@ from .forms import (
 )
 from .models import Todo
 from .weather import (
-    API_KEY,
-    BASE_URL_WEATHER,
+    OPENWEATHERMAP_API_KEY,
+    OPENWEATHERMAP_URL_WEATHER,
+    OPENWEATHERMAP_TIMEOUT,
     ZERO_C_IN_K,
 )
 
@@ -88,10 +89,15 @@ def weather(request):
 
     location = request.GET.get('q', None)
     if location:
-        url_weather = (
-            f"{BASE_URL_WEATHER}appid={API_KEY}&q={location}"
+        query = {
+            'appid': OPENWEATHERMAP_API_KEY,
+            'q': location
+        }
+        response = requests.get(
+            OPENWEATHERMAP_URL_WEATHER,
+            params=query,
+            timeout=OPENWEATHERMAP_TIMEOUT
         )
-        response = requests.get(url_weather)
         response_json = response.json()
         if response_json['cod'] != '404':
             main_info = response_json['main']
