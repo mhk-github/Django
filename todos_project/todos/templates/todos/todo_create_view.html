@@ -1,0 +1,32 @@
+{% extends "todos/base.html" %}
+
+{% block title %}To Do - Add Task{% endblock %}
+{% block content %}
+
+  <p>
+    <h3>Add Task</h3>
+  </p>
+
+  <div class="form-group">
+    <div class="todo_form">
+      <form method="POST" enctype="multipart/form-data">
+ 
+        <!-- Security token -->
+        {% csrf_token %}
+ 
+        {{ form.as_p }}
+
+        <button class="btn btn-secondary">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <p>
+    <div class="temperature">
+    </div>
+  </p>
+
+  <p>
+    <a href="{% url 'todos:list' %}" class="btn btn-secondary">Back</a>
+  </p>
+{% endblock %}
