@@ -1,6 +1,13 @@
 # README
 
-## Initial Setup
+## Synopsis
+
+A basic task management system built using Django 3. Tasks are assigned a
+location. The temperature at that location determines the background colour
+of the task in its list and its detailed views. If a task is marked as
+completed then the background colour will not change from the default colour.
+
+## Setup
 
 These directories contain all project files following the initial creation of
 this Django 3 project using these instructions:
